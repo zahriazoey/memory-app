@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Card from './components/Card';
+import MemoryCard from './components/MemoryCard';
 
 import './App.css';
 
@@ -13,31 +13,31 @@ function App() {
         </header>
       
       <div className='row'>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
       </div>
       
       <div className='row'>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
       </div>
   
       <div className='row'> 
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
       </div>
   
       <div className='row'>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
+        <MemoryCard></MemoryCard>
       </div>
           
     </div>
