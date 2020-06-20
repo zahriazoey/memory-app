@@ -21,7 +21,6 @@ class MemoryCard extends Component {
                         </div>
                     
                         <div className='MemoryCard_front'>{ this.props.symbol }</div>
-
                     </div>
                 </div>   
             </div>

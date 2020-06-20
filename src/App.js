@@ -4,8 +4,7 @@ import './App.css';
 
 function generateDeck() {
   // let symbols = ['∆', 'ß', '£', '§', '•', '$', '+', 'ø'];
-  let symbols = ['💀', '👓', '🧩', '🧬', '🆒', '〰️', '☯︎', '🥑'];
-
+  let symbols = ['🍾', '👓', '🧩', '🧬', '🌈', '🦞', '☯︎', '🥑'];
   let deck = [];
 
   for (let i = 0; i < 16; i++) {
@@ -13,10 +12,8 @@ function generateDeck() {
       isFlipped: false,
       symbol: symbols[i%8]
     })
-
   } 
   return shuffle(deck);
-
 }
 
 function shuffle(a) {
@@ -27,47 +24,52 @@ function shuffle(a) {
   return a;
 }
 
-
-
-
 class App extends Component {
   constructor() {
     super()
 
     this.state = { 
       deck: generateDeck(), 
-      pickedCards: []
+      pickedCards: [],
+      won: false,
+      
+  
   }
 }
 
-pickCard = (cardIndex) => {
-  console.log('clicked', cardIndex)
-  if (this.state.deck[cardIndex].isFlipped) {
-    return; 
-  }
-  let cardToFlip = {...this.state.deck[cardIndex]};
-  cardToFlip.isFlipped = true;
 
-  let newPickedCards = this.state.pickedCards.concat(cardIndex);
-  let newDeck = this.state.deck.map((card, index) => {
-    if (cardIndex === index) {
-      return cardToFlip;
+
+  pickCard = (cardIndex) => {
+    if (this.state.deck[cardIndex].isFlipped) {
+      return; 
+  }
+    let cardToFlip = {...this.state.deck[cardIndex]};
+    cardToFlip.isFlipped = true;
+
+    let newPickedCards = this.state.pickedCards.concat(cardIndex);
+    let newDeck = this.state.deck.map((card, index) => {
+      if (cardIndex === index) {
+        return cardToFlip;
     }
-    return card;
+      return card;
   });
 
-    if (newPickedCards.length === 2) {
-      let card1Index = newPickedCards[0];
-      let card2Index = newPickedCards[1];
+      if (newPickedCards.length === 2) {
+        let card1Index = newPickedCards[0];
+        let card2Index = newPickedCards[1];
 
-      if (newDeck[card1Index].symbol !== newDeck[card2Index].symbol) {
-        setTimeout(() => {this.unflipCards(card1Index,card2Index)}, 1000);
-
+        if (newDeck[card1Index].symbol !== newDeck[card2Index].symbol) {
+          setTimeout(() => {this.unflipCards(card1Index,card2Index)}, 1000);
       }
-      newPickedCards = [];
+        newPickedCards = [];
     }
-    this.setState({ deck: newDeck, pickedCards: newPickedCards })
-  
+      
+      this.setState({ deck: newDeck, pickedCards: newPickedCards })
+    
+      this.gameOver(newDeck)
+
+    
+
 }
 
   unflipCards = (card1Index, card2Index) => {
@@ -83,13 +85,28 @@ pickCard = (cardIndex) => {
         return card2
       }
       return card; 
-
     });
-
     this.setState({ deck: newDeck });
-
 }
 
+  gameOver = (deck) => {
+    if (deck.filter((card) => {
+      return !card.isFlipped;
+    }).length === 0) {
+      this.setState({ won: true });
+    }
+  }
+
+  
+
+
+  handleClick = () => {
+    this.setState({
+      deck: generateDeck(), 
+      pickedCards: [],
+      won: false,
+    })
+  }
 
 
 
@@ -109,28 +126,22 @@ pickCard = (cardIndex) => {
       <div className='row'>
         { cardJSX.slice(0,4) }
       </div>
-    
-    <div className='row'>
-      { cardJSX.slice(4,8) }
-    </div>
-
-    <div className='row'> 
-      { cardJSX.slice(8,12) } 
-    </div>
-
-    <div className='row'>
-      { cardJSX.slice(12,16) }
-    </div>
+      <div className='row'>
+        { cardJSX.slice(4,8) }
+      </div>
+      <div className='row'> 
+        { cardJSX.slice(8,12) } 
+      </div>
+      <div className='row'>
+        { cardJSX.slice(12,16) }
+      </div>
+      <div>
+      { this.state.won && <button onClick={ this.handleClick }>Play again</button> }  
+      </div>
+      
   </div>  
-
     )
   }
-
 }
-
-
-
-
-
 
 export default App;
